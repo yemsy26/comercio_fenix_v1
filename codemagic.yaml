@@ -1,0 +1,15 @@
+workflows:
+  default-workflow:
+    name: Build and Test
+    max_build_duration: 60
+    environment:
+      vars:
+        FLUTTER_CHANNEL: stable
+    scripts:
+      - flutter pub get
+      - flutter test
+      - flutter build apk --release
+      # Si quieres compilar iOS, puedes incluir:
+      - flutter build ios --release --no-codesign
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
