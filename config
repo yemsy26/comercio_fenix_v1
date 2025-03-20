@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/yemsy26/comercio_fenix_v1.git
+	fetch = +refs/*:refs/*
+	mirror = true
