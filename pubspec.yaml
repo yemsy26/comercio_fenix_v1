@@ -1,0 +1,78 @@
+name: comercio_fenix_v1
+description: "Primera versión local de Comercio Fenix"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.7.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Firebase y servicios relacionados
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.1
+  cloud_firestore: ^5.6.5
+  firebase_storage: ^12.4.4
+  firebase_messaging: ^15.2.4
+  google_sign_in: ^6.1.0
+  firebase_database: ^11.3.4
+
+  # Localización y traducciones
+  easy_localization: ^3.0.0
+
+  # Conectividad
+  connectivity_plus: ^6.1.3
+
+  # Almacenamiento local con Hive
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Autenticación biométrica
+  local_auth: ^2.1.0
+
+  # Generación e impresión de PDFs, compartir contenido y abrir URLs
+  pdf: ^3.11.3           # Fijado a 3.10.1 para evitar conflictos con networkImage
+  printing: ^5.9.0
+  share_plus: ^10.1.4
+  url_launcher: ^6.1.7
+
+  # Selección de imágenes desde galería o cámara
+  image_picker: ^1.1.2
+
+  # Solicitar permisos (galería, cámara, etc.)
+  permission_handler: ^11.4.0
+
+  # Captura de firmas profesional
+  signature: ^6.0.0
+
+  http: ^0.13.6
+  intl: ^0.19.0
+  path_provider: ^2.0.11
+  cross_file: ^0.3.4+2
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.3
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/google.png
+    - assets/translations/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  android_icon_name: "ic_launcher"
+  android_round_icon_name: "ic_launcher_round"
+
+dependency_overrides:
+  http: ^0.13.6

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.comerciofenix056.comercio_fenix_v1">
+
+    <!-- Permisos necesarios -->
+    <!-- Acceso a Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permiso para chequear estado de red (opcional, si lo necesitas con Connectivity) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Permisos para acceder a imágenes en Android 13+ -->
+    <!-- (En versiones anteriores se requería READ_EXTERNAL_STORAGE, pero se está deprecated para Android 13+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Si tu app necesita leer videos/audios, podrías agregar READ_MEDIA_VIDEO / READ_MEDIA_AUDIO. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Permiso para usar la cámara (para tomar fotos con image_picker) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Declaras que la cámara no es obligatoria: -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application
+        android:label="Comercio Fenix v1"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/NormalTheme">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:theme="@style/LaunchTheme">
+
+            <!-- Tema normal mientras se inicia Flutter -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
+
+            <!-- Activity principal -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Requerido para generar GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+
+    <!-- Consulta actividades que procesen texto -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
+</manifest>
