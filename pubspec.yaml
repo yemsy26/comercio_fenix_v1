@@ -48,6 +48,8 @@ dependencies:
 
   # Captura de firmas profesional
   signature: ^6.0.0
+  platform : ^3.1.6
+
 
   http: ^0.13.6
   intl: ^0.19.0
