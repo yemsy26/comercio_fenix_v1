@@ -1,15 +1,14 @@
 workflows:
-  default-workflow:
-    name: Build and Test
+  ios_build:
+    name: Build iOS App without Code Signing
     max_build_duration: 60
     environment:
+      flutter: stable
       vars:
-        FLUTTER_CHANNEL: stable
+      # Puedes definir variables de entorno aquí si es necesario
+      # Por ejemplo: IOS_CODE_SIGNING: "false"
     scripts:
       - flutter pub get
-      - flutter test
-      - flutter build apk --release
-      # Si quieres compilar iOS, puedes incluir:
-      - flutter build ios --release --no-codesign
+      - flutter build ios --no-codesign
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - build/ios/iphoneos/Runner.app
