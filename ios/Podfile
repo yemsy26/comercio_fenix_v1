@@ -1,0 +1,12 @@
+# Podfile mínimo para proyecto Flutter
+platform :ios, '13.0'  # <-- Ajusta aquí la versión mínima de iOS que requieras
+
+# ignore_all_warnings!  # (opcional) Ignora todas las advertencias de pods
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+
+  # Instala todos los pods de Flutter (esta función la inyecta Flutter en tu proyecto)
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
