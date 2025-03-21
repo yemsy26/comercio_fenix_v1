@@ -1,12 +1,26 @@
-# Podfile mínimo para proyecto Flutter
-platform :ios, '13.0'  # <-- Ajusta aquí la versión mínima de iOS que requieras
+# Uncomment this line to define a global platform for your project
+platform :ios, '13.0'
 
-# ignore_all_warnings!  # (opcional) Ignora todas las advertencias de pods
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+# Define el proyecto de Xcode
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+# Carga los plugins de Flutter
+require_relative '../.flutter-plugins'
+require_relative '../.flutter-plugins-dependencies'
+
+# Importa el podhelper de Flutter
+require_relative 'Flutter/podhelper.rb'
 
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Instala todos los pods de Flutter (esta función la inyecta Flutter en tu proyecto)
-  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  flutter_install_all_ios_pods(File.dirname(File.realpath(__FILE__)))
 end
