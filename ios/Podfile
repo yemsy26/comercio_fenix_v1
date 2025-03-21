@@ -1,26 +1,43 @@
-# Uncomment this line to define a global platform for your project
-platform :ios, '13.0'
+                        # Uncomment the next line to define a global platform for your project
+                        platform :ios, '13.0'
 
-# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
-ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+                        # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+                        ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
-# Define el proyecto de Xcode
-project 'Runner', {
-  'Debug' => :debug,
-  'Profile' => :release,
-  'Release' => :release,
-}
+                        # Define the project settings. Esto se genera automáticamente en Flutter.
+                        project 'Runner', {
+                          'Debug' => :debug,
+                          'Profile' => :release,
+                          'Release' => :release,
+                        }
 
-# Carga los plugins de Flutter
-require_relative '../.flutter-plugins'
-require_relative '../.flutter-plugins-dependencies'
+                        # Obtiene la ruta de Flutter desde el archivo generado
+                        def flutter_root
+                          generated_xcode_build_settings_path = File.expand_path(File.join('Flutter', 'Generated.xcconfig'), __FILE__)
+                          unless File.exist?(generated_xcode_build_settings_path)
+                            puts "Generated.xcconfig must exist. Run 'flutter pub get' to generate it."
+                            exit 1
+                          end
+                          File.foreach(generated_xcode_build_settings_path) do |line|
+                            matches = line.match(/FLUTTER_ROOT\=(.*)/)
+                            return matches[1].strip if matches
+                          end
+                          abort("FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try running 'flutter pub get'.")
+                        end
 
-# Importa el podhelper de Flutter
-require_relative 'Flutter/podhelper.rb'
+                        # Carga el helper de pods de Flutter
+                        require File.expand_path(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper.dart'))
 
-target 'Runner' do
-  use_frameworks!
-  use_modular_headers!
+                        # Ejecuta la configuración de pods de Flutter
+                        flutter_ios_podfile_setup
 
-  flutter_install_all_ios_pods(File.dirname(File.realpath(__FILE__)))
-end
+                        target 'Runner' do
+                          use_frameworks!
+                          use_modular_headers!
+
+                          flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+                          # Aquí puedes agregar pods adicionales si es necesario, por ejemplo:
+                          # pod 'Firebase/Firestore'
+                          # pod 'Firebase/Auth'
+                        end
