@@ -1,43 +1,43 @@
-                        # Uncomment the next line to define a global platform for your project
-                        platform :ios, '13.0'
+   # Plantea el deployment target en iOS 13.0 (puedes ajustarlo si lo necesitas)
+   platform :ios, '13.0'
 
-                        # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
-                        ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+   # Desactiva el envío de estadísticas de CocoaPods para reducir la latencia del build.
+   ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
-                        # Define the project settings. Esto se genera automáticamente en Flutter.
-                        project 'Runner', {
-                          'Debug' => :debug,
-                          'Profile' => :release,
-                          'Release' => :release,
-                        }
+   # Define el proyecto Runner y las configuraciones para cada build mode.
+   project 'Runner', {
+     'Debug' => :debug,
+     'Profile' => :release,
+     'Release' => :release,
+   }
 
-                        # Obtiene la ruta de Flutter desde el archivo generado
-                        def flutter_root
-                          generated_xcode_build_settings_path = File.expand_path(File.join('Flutter', 'Generated.xcconfig'), __FILE__)
-                          unless File.exist?(generated_xcode_build_settings_path)
-                            puts "Generated.xcconfig must exist. Run 'flutter pub get' to generate it."
-                            exit 1
-                          end
-                          File.foreach(generated_xcode_build_settings_path) do |line|
-                            matches = line.match(/FLUTTER_ROOT\=(.*)/)
-                            return matches[1].strip if matches
-                          end
-                          abort("FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try running 'flutter pub get'.")
-                        end
+   # Función para obtener la ruta de FLUTTER_ROOT desde el archivo Generated.xcconfig
+   def flutter_root
+     generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'))
+     unless File.exist?(generated_xcode_build_settings_path)
+       puts "Generated.xcconfig must exist. Run 'flutter pub get' to generate it."
+       exit 1
+     end
+     File.foreach(generated_xcode_build_settings_path) do |line|
+       matches = line.match(/FLUTTER_ROOT\=(.*)/)
+       return matches[1].strip if matches
+     end
+     raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}."
+   end
 
-                        # Carga el helper de pods de Flutter
-                        require File.expand_path(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper.dart'))
+   # Importa el helper de Flutter para los Pods
+   require File.expand_path(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper.rb'))
 
-                        # Ejecuta la configuración de pods de Flutter
-                        flutter_ios_podfile_setup
+   target 'Runner' do
+     use_frameworks!
+     use_modular_headers!
 
-                        target 'Runner' do
-                          use_frameworks!
-                          use_modular_headers!
+     # Instala todos los pods de Flutter
+     flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+   end
 
-                          flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-
-                          # Aquí puedes agregar pods adicionales si es necesario, por ejemplo:
-                          # pod 'Firebase/Firestore'
-                          # pod 'Firebase/Auth'
-                        end
+   post_install do |installer|
+     installer.pods_project.targets.each do |target|
+       flutter_additional_ios_build_settings(target)
+     end
+   end

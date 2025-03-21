@@ -5,8 +5,8 @@ workflows:
     environment:
       flutter: stable
       vars:
-      # Puedes definir variables de entorno aquí si es necesario
-      # Por ejemplo: IOS_CODE_SIGNING: "false"
+        # Puedes agregar otras variables de entorno aquí si lo requieres
+        IOS_CODE_SIGNING: "false"
     scripts:
       - flutter pub get
       - flutter build ios --no-codesign
